@@ -4,7 +4,7 @@ services:
         image: "node:17.7-alpine"
         container_name: "coupdepousse-node"
         links:
-          - "coupdepousse-mariadb:mariadb.host"
+          - "coupdepousse-postgres:postgres.host"
         ports:
           - 3000:3000
         volumes:
@@ -12,17 +12,16 @@ services:
         working_dir: /coupdepousse
         restart: always
         entrypoint: "/bin/sh -c -- \"while true; do sleep 10; done\""
-    coupdepousse-mariadb:
-        image: "mariadb:10.6"
-        container_name: "coupdepousse-mariadb"
+    coupdepousse-postgres:
+        image: "postgres:14.2"
+        container_name: "coupdepousse-postgres"
         volumes:
-            - "._mysql_data_dir/:/var/lib/mysql:rw"
+            - "._postgres_data_dir/:/var/lib/postgres:rw"
         ports:
-          - 3307:3306
+          - 5432:5432
         environment:
-          - MARIADB_USER
-          - MARIADB_PASSWORD
-          - MARIADB_DATABASE
-          - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=true
+          - POSTGRES_USER
+          - POSTGRES_PASSWORD
+          - POSTGRES_DB
         restart: always
     
