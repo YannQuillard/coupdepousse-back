@@ -25,6 +25,7 @@
     "@nestjs/config": "^2.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/sequelize": "^8.0.0",
     "mysql2": "^2.3.3",
     "nestjs": "^0.0.1",
     "pg": "^8.7.3",
