@@ -1,6 +1,8 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Header, HttpCode, Post } from "@nestjs/common";
 import { send } from "process";
 import { TwilioServices } from "./twilio_sms.service";
+
+const MessagingResponse = require('twilio').twiml.MessagingResponse;
 
 @Controller(`Twilio`)
 export class TwilioController {
@@ -13,6 +15,15 @@ export class TwilioController {
 
     @Get(`send`)
     sendSms(): any {
-        return this.twilioServices.sendSms();
+        return this.twilioServices.sendSms('+23456543');
     }
+
+    @Post('sms')
+    @HttpCode(200)
+    @Header('Content-Type', 'text/xml')
+    recSms(): any {
+        const twiml = new MessagingResponse();
+        twiml.message('HELLO WORLD 2')
+    }
+    
 }
