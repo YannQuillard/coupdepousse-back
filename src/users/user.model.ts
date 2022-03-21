@@ -15,27 +15,27 @@ export class User extends Model<PersonAttributes, PersonCreationAttributes>  {
     @Column
     lastName: string;
 
-    @Column
-    phone: string;
+    // @Column
+    // phone: string;
 
-    @Column
-    description: string;
+    // @Column
+    // description: string;
 
-    @Column
-    avatar: string;
+    // @Column
+    // avatar: string;
 
-    @Column
-    helped_people: string;
+    // @Column
+    // helped_people: string;
 
-    @Column
-    address: string;
+    // @Column
+    // address: string;
 
-    @Column
-    birthdate: Date;
+    // @Column
+    // birthdate: Date;
 
-    @Column
-    signup_date: Date;
+    // @Column
+    // signup_date: Date;
 
-    @Column
-    freeworker: boolean;
+    // @Column
+    // freeworker: boolean;
 }
