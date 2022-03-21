@@ -7,7 +7,7 @@ export class TwilioServices {
         return `I'm twilio ! 🐞`;
     }
 
-    sendSms(): string {
-        return sendSms();
+    sendSms(phoneNbr: string): string {
+        return sendSms(phoneNbr);
     }
 }

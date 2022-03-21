@@ -1,13 +1,28 @@
-FROM node:17.7-alpine AS builder
+FROM node:17-alpine As development
 
 WORKDIR /coupdepousse-back
 
-COPY ./ /coupdepousse-back/
+COPY package*.json ./
 
-RUN npm install
+RUN npm install --only=development
 
-FROM node:17.7-alpine AS prod
+COPY . .
+
+RUN npm run build
+
+FROM node:17-alpine as production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /coupdepousse-back
 
-COPY --from=builder /coupdepousse-back /coupdepousse-back
+COPY package*.json ./
+
+RUN npm install --only=production
+
+COPY . .
+
+COPY --from=development /coupdepousse-back/dist ./dist
+
+CMD ["node", "dist/main"]
