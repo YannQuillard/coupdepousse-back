@@ -1,41 +1,50 @@
-import { Optional } from 'sequelize'
-import { Column, Model, Table } from 'sequelize-typescript';
+import { Optional } from 'sequelize';
+import { AllowNull, Unique, Column, Model, Table } from 'sequelize-typescript';
 
-interface PersonAttributes {
+interface UserAttributes {
     id: number
 }
-  
-interface PersonCreationAttributes extends Optional<PersonAttributes, 'id'> {}
-  
+
+interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
+
 @Table
-export class User extends Model<PersonAttributes, PersonCreationAttributes>  {    
+export class User extends Model<UserAttributes, UserCreationAttributes> {
     @Column
     firstName: string;
 
+    @AllowNull
     @Column
     lastName: string;
 
-    // @Column
-    // phone: string;
+    @Unique
+    @Column
+    phone: string;
 
-    // @Column
-    // description: string;
+    @AllowNull
+    @Column
+    description: string;
 
-    // @Column
-    // avatar: string;
+    @AllowNull
+    @Column
+    avatar: string;
 
-    // @Column
-    // helped_people: string;
+    @AllowNull
+    @Column
+    helped_people: string;
 
-    // @Column
-    // address: string;
+    @AllowNull
+    @Column
+    address: string;
 
-    // @Column
-    // birthdate: Date;
+    @AllowNull
+    @Column
+    birthdate: Date;
 
-    // @Column
-    // signup_date: Date;
+    @AllowNull
+    @Column
+    signup_date: Date;
 
-    // @Column
-    // freeworker: boolean;
+    @AllowNull
+    @Column
+    freeworker: boolean;
 }
