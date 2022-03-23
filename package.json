@@ -30,6 +30,7 @@
     "class-validator": "^0.13.2",
     "mysql2": "^2.3.3",
     "nestjs": "^0.0.1",
+    "ngrok": "^4.3.1",
     "npm": "^8.5.5",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",

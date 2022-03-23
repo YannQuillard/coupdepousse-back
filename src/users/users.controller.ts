@@ -22,6 +22,11 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  @Get('/phone/:phone')
+  findOneByPhone(@Param('phone') phone: string): Promise<User> {
+    return this.usersService.findOneByPhone(phone); 
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string): Promise<void> {
     return this.usersService.remove(id);

@@ -1,4 +1,4 @@
-import { Controller, Get, Header, HttpCode, Post } from "@nestjs/common";
+import { Controller, Get, Header, HttpCode, Post, Logger, Body, Res, Req } from "@nestjs/common";
 import { send } from "process";
 import { TwilioServices } from "./twilio_sms.service";
 
@@ -21,9 +21,16 @@ export class TwilioController {
     @Post('sms')
     @HttpCode(200)
     @Header('Content-Type', 'text/xml')
-    recSms(): any {
-        const twiml = new MessagingResponse();
-        twiml.message('HELLO WORLD 2')
+    recSms(@Body() test, @Res() res, @Req() req): any {
+        const twiml = new MessagingResponse(); 
+        if (this.twilioServices.checkNbr(req.body.From)) {
+            twiml.message(`Merci Yann tu as aussi une grosse ${req.body.From}`);
+        } else {
+            twiml.message(`T'es une merde ${req.body.From} car c'est ta première fois`);
+        }
+        Logger.log(twiml);
+        Logger.log('receive msg = ',  test);
+        res.end(twiml.toString())
     }
     
 }

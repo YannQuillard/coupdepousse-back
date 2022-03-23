@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, Logger } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.model';
 
@@ -24,6 +24,10 @@ export class UsersService {
       },
     });
   }
+
+  async findOneByPhone(phone: string): Promise<User> {
+    return this.usersRepository.findOne({phone}); 
+}
 
   async remove(id: string): Promise<void> {
     const user = await this.findOne(id);
