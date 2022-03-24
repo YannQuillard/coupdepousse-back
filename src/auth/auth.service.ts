@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, Logger } from '@nestjs/common';
 import { CreateTokenDto } from './dto/create-token.dto';
 import { CreateVerificationCodeDto } from './dto/create-verificationCode.dto';
 import { Token } from './token.model';
@@ -14,11 +14,13 @@ export class AuthService {
         private readonly verificationCode: typeof VerificationCode,
     ) {}
 
-    async createToken(createTaskDto: CreateTokenDto ): Promise<Token> {
-        return this.tokenRepository.create(createTaskDto);
+    async createToken(createTokenDto: CreateTokenDto ): Promise<Token> {
+        return this.tokenRepository.create(createTokenDto);
     }
 
     async createCode(createVerificationCodeDto: CreateVerificationCodeDto ): Promise<VerificationCode> {
+        const code = Math.floor(1000 + Math.random() * 9000);
+        createVerificationCodeDto.code = code;
         return this.verificationCode.create(createVerificationCodeDto);
     }
 }
