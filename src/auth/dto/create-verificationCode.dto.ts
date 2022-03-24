@@ -1,13 +1,13 @@
 import { IsNotEmpty, IsString, IsNumber, IsDate } from 'class-validator';
 
-export class CreateTokenDto {
-    @IsNotEmpty()
-    @IsNumber()
-    readonly userId: number;
-
+export class CreateVerificationCodeDto {
     @IsNotEmpty()
     @IsString()
-    readonly token: string;
+    readonly phone: string;
+
+    @IsNotEmpty()
+    @IsNumber()
+    readonly code: number;
 
     @IsNotEmpty()
     @IsDate()
