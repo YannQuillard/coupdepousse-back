@@ -35,7 +35,7 @@ export class UsersController {
   }
 
   @Get('/phone/:phone')
-  findOneByPhone(@Param('phone') phone: string) {
+  findOneByPhone(@Param('phone') phone: string): Promise<User> {
     return this.usersService.findOneByPhone(phone); 
   }
 
