@@ -13,10 +13,10 @@ interface UserAttributes {
     city: string,
     country: string,
     postalCode: string,
-    latitude: number,
-    longitude: number,
+    latitude: string,
+    longitude: string,
     birthdate?: Date,
-    freeworker: boolean
+    isValidate: boolean
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
@@ -64,11 +64,11 @@ export class User extends Model<UserAttributes, UserCreationAttributes> {
 
     @AllowNull
     @Column
-    latitude: number;
+    latitude: string;
 
     @AllowNull
     @Column
-    longitude: number;
+    longitude: string;
 
     @AllowNull
     @Column
@@ -80,5 +80,5 @@ export class User extends Model<UserAttributes, UserCreationAttributes> {
 
     @AllowNull
     @Column
-    freeworker: boolean;
+    isValidate: boolean;
 }

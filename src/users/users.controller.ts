@@ -3,6 +3,13 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.model';
 import { UsersService } from './users.service';
 
+/**
+ * S'inscrire
+ * Update le profil
+ * Vérifier si un user existe
+ * Se connecter
+ * Récuperer le profil d'un user
+ */
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -10,6 +17,11 @@ export class UsersController {
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
+  }
+
+  @Post()
+  checkPhoneCode(@Body() code: string) {
+    return this.usersService.checkPhoneCode(code);
   }
 
   @Get()

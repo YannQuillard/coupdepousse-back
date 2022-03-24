@@ -6,6 +6,12 @@ import { HttpService } from '@nestjs/axios';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+
+type Coordinate = {
+  lat: string,
+  lon: string
+}
+
 @Injectable()
 export class UsersService {
   constructor(
@@ -15,41 +21,48 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto) {
+    createUserDto.isValidate = false;
     const existingPhone = await this.findOneByPhone(createUserDto.phone);
-    // let coordinate = this.fetchAddress(createUserDto.address, createUserDto.postalCode, createUserDto.city, createUserDto.country);
 
-    // return coordinate;
-    // Logger.log(coordinate[0]);
-    // if(coordinate[0].lat && coordinate[0].lon) {
-    //   createUserDto.latitude = coordinate[0].lat;
-    //   createUserDto.longitude = coordinate[0].lon;
-    // }
+    let coordinate = this.fetchAddress(createUserDto.address, createUserDto.postalCode, createUserDto.city, createUserDto.country);
+    
+    coordinate.subscribe((x: Coordinate[]) => {
+      console.log(x)
+      if(x[0] !== undefined) {
+        createUserDto.latitude = x[0].lat;
+        createUserDto.longitude = x[0].lon;
+      }
 
+      if(existingPhone === null) {
+        this.usersRepository.create(createUserDto);
+      }
+    })
 
     if(existingPhone !== null) {
       throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
     }
     else {
-      const newUser = this.usersRepository.create(createUserDto);
-
       const user = {
-        id: (await newUser).id,
-        phone: (await newUser).phone,
-        firstName: (await newUser).firstName,
+        phone: createUserDto.phone,
+        firstName: createUserDto.firstName,
         //token: this.generateJWT(user),
       };
       return { user };
     }
   }
 
-  fetchAddress(address: string, postalCode: string, city: string, country: string): Observable<Array<any>> {
+  fetchAddress(address: string, postalCode: string, city: string, country: string): Observable<Array<Coordinate>> {
     const addressQuery = `street=${encodeURIComponent(address)}&postalcode=${encodeURIComponent(postalCode)}&city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}`;
-
+    console.log(addressQuery);
     return this.httpService.get(`${process.env.OSM_URL}/search?${addressQuery}&format=json`).pipe(
       map((axiosResponse: AxiosResponse) => {
         return axiosResponse.data;
       })
-    );
+    )
+  }
+
+  async checkPhoneCode(code: string) {
+    return true;
   }
 
   async findAll(): Promise<User[]> {
