@@ -32,18 +32,18 @@ export class CreateUserDto {
     postalCode: string;
 
     @IsOptional()
-    @IsNumber()
-    latitude: number;
+    @IsString()
+    latitude: string;
 
     @IsOptional()
-    @IsNumber()
-    longitude: number;
+    @IsString()
+    longitude: string;
 
     @IsOptional()
     @IsDate()
     birthdate?: Date;
 
+    @IsOptional()
     @IsBoolean()
-    @IsNotEmpty()
-    freeworker: boolean;
+    isValidate: boolean;
 }
