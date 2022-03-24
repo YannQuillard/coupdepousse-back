@@ -9,6 +9,7 @@ import { TasksModule } from './tasks/tasks.module';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
 import { TwilioModule } from './twilio_sms/twilio_sms.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { TwilioModule } from './twilio_sms/twilio_sms.module';
     ChatModule,
     UsersModule,
     TasksModule,
+    AuthModule,
     TwilioModule
   ],
   controllers: [AppController],

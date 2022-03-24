@@ -7,8 +7,10 @@ import { VerificationCode } from './verificationCode.model';
 @Injectable()
 export class AuthService {
     constructor(
-        @Inject('AuthRepository')
+        @Inject('TOKEN_REPOSITORY')
         private readonly tokenRepository: typeof Token,
+
+        @Inject('VERIFICATIONCODE_REPOSITORY')
         private readonly verificationCode: typeof VerificationCode,
     ) {}
 
