@@ -44,7 +44,7 @@ export class User extends Model<UserAttributes, UserCreationAttributes> {
 
     @AllowNull
     @Column
-    helped_people: string;
+    helped_people: number;
 
     @AllowNull
     @Column
