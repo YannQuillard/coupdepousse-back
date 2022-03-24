@@ -1,4 +1,4 @@
-import { Injectable, Inject, Logger } from '@nestjs/common';
+import { Injectable, Inject, HttpException, HttpStatus } from '@nestjs/common';
 import { CreateTokenDto } from './dto/create-token.dto';
 import { CreateVerificationCodeDto } from './dto/create-verificationCode.dto';
 import { Token } from './token.model';
@@ -22,5 +22,19 @@ export class AuthService {
         const code = Math.floor(1000 + Math.random() * 9000);
         createVerificationCodeDto.code = code;
         return this.verificationCode.create(createVerificationCodeDto);
+    }
+
+    async checkCode(code: number, phone: string) {
+        const result = await this.verificationCode.findOne({
+            where: {
+                phone,
+                code
+            },
+        });
+
+        if(!result) {
+            throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+        }
+        return result
     }
 }

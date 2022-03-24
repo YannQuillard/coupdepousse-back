@@ -14,17 +14,23 @@ import { AuthService } from './auth.service';
  */
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly tasksService: AuthService) {}
+  constructor(private readonly authService: AuthService) {}
 
-    @Post('/token')
-    createToken(@Body() createTokenDto: CreateTokenDto) {
-        return this.tasksService.createToken(createTokenDto);
-    }
+  @Post('/token')
+  createToken(@Body() createTokenDto: CreateTokenDto) {
+    return this.authService.createToken(createTokenDto);
+  }
 
-    @Post('/code')
-    createValidationCode(@Body() createVerificationCodeDto: CreateVerificationCodeDto) {
-        return this.tasksService.createCode(createVerificationCodeDto);
-    }
+  @Post('/code')
+  createValidationCode(@Body() createVerificationCodeDto: CreateVerificationCodeDto) {
+    return this.authService.createCode(createVerificationCodeDto);
+  }
+  
+  @Post('/check-code')
+  checkValidationCode(@Body() createVerificationCodeDto: CreateVerificationCodeDto) {
+    return this.authService.checkCode(createVerificationCodeDto.code, createVerificationCodeDto.phone);
+
+  }
 
 //   @Get('/token/:id')
 //   findAllToken(@Param('id') id: string): Promise<Token> {
