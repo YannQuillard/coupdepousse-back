@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coupdepousse-deployment
+  labels:
+    app: coupdepousse
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: coupdepousse
+  template:
+    metadata:
+      labels:
+        app: coupdepousse
+    spec:
+      containers:
+      - name: node-coupdepousse
+        image: yannquillard/coupdepousse:latest
+        ports:
+        - containerPort: 3000
+        env:
+          - name: APP_PORT
+            value: "3000"
+          - name: OSM_URL
+            value: https://nominatim.openstreetmap.org
+          - name: TWILIO_ACCOUNT_SID
+            value: ACfa7f7cc041ea00b02a0b7c00362239b5
+          - name: TWILIO_PHONE_NUMBER
+            value: "+13322442934"
+          - name: TWILIO_AUTH_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: coupdepousse
+                key: twilio_auth_token
+          - name: POSTGRES_HOST
+            value: "35.198.176.165"
+          - name: POSTGRES_DATABASE
+            value: coupdepousse
+          - name: POSTGRES_USER
+            value: coupdepousse
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: coupdepousse
+                key: postgres_password
+        resources:
+          requests:
+            cpu: 250m
+            memory: 512M
+          limits:
+            cpu: 250m
+            memory: 512M
