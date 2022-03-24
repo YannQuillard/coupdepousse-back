@@ -4,6 +4,11 @@ import { CreateVerificationCodeDto } from './dto/create-verificationCode.dto';
 import { Token } from './token.model';
 import { VerificationCode } from './verificationCode.model';
 
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const phoneNbr = process.env.TWILIO_PHONE_NUMBER;
+const client = require('twilio')(accountSid, authToken);
+
 @Injectable()
 export class AuthService {
     constructor(
@@ -24,6 +29,11 @@ export class AuthService {
         Logger.log(existingPhone);
         if(existingPhone === null) {
             createVerificationCodeDto.code = code;
+            client.messages.create({
+                body:`Voici votre code d'authentification : ${code}`,
+                from: phoneNbr,
+                to: createVerificationCodeDto.phone
+            })
             return this.verificationCode.create(createVerificationCodeDto);
         }
         else {
