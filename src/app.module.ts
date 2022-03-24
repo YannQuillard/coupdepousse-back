@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { ChatModule } from './chat/chat.module';
+import { TasksModule } from './tasks/tasks.module';
 
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
@@ -15,6 +16,7 @@ import { TwilioModule } from './twilio_sms/twilio_sms.module';
     DatabaseModule,
     ChatModule,
     UsersModule,
+    TasksModule,
     TwilioModule
   ],
   controllers: [AppController],
