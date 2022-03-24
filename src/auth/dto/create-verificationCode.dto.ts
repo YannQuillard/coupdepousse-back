@@ -3,13 +3,13 @@ import { IsNotEmpty, IsString, IsNumber, IsDate } from 'class-validator';
 export class CreateVerificationCodeDto {
     @IsNotEmpty()
     @IsString()
-    readonly phone: string;
+    phone: string;
 
     @IsNotEmpty()
     @IsNumber()
-    readonly code: number;
+    code: number;
 
     @IsNotEmpty()
     @IsDate()
-    readonly timestamp: number;
+    timestamp: number;
 }
