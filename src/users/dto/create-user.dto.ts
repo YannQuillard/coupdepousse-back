@@ -27,17 +27,17 @@ export class CreateUserDto {
 
     address?: string;
 
-    city: string;
-    country: string;
-    postalCode: string;
+    city?: string;
+    country?: string;
+    postalCode?: string;
 
     @IsOptional()
     @IsString()
-    latitude: string;
+    latitude?: string;
 
     @IsOptional()
     @IsString()
-    longitude: string;
+    longitude?: string;
 
     @IsOptional()
     @IsDate()

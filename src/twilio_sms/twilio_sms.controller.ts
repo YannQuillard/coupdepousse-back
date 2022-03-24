@@ -14,7 +14,6 @@ let inSubscription: boolean = false;
 
 @Controller(`Twilio`)
 export class TwilioController {
-    @Inject(UsersService)
     constructor(private readonly twilioServices: TwilioServices, private readonly userService: UsersService) {}
 
     @Get()
@@ -39,7 +38,7 @@ export class TwilioController {
             let signupVar: CreateUserDto = {
                 firstName: req.body.Body,
                 phone: req.body.From,
-                freeworker: false
+                isValidate: true,
             }
             twiml.message(`Merci ${signupVar.firstName} de votre inscription`);
             this.userService.create(signupVar);
