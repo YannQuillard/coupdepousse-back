@@ -28,7 +28,7 @@ export class AuthController {
   
   @Post('/check-code')
   checkValidationCode(@Body() createVerificationCodeDto: CreateVerificationCodeDto) {
-    return this.authService.checkCode(createVerificationCodeDto.code, createVerificationCodeDto.phone);
+    return this.authService.checkCode(createVerificationCodeDto);
 
   }
 

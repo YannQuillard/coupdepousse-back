@@ -31,7 +31,10 @@ export class AuthService {
         }
     }
 
-    async checkCode(code: number, phone: string) {
+    async checkCode(createVerificationCodeDto: CreateVerificationCodeDto) {
+        const phone = createVerificationCodeDto.phone;
+        const code = createVerificationCodeDto.code;
+        
         const result = await this.verificationCode.findOne({
             where: {
                 phone,
