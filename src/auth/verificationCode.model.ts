@@ -4,8 +4,7 @@ import { Column, Model, Table, CreatedAt } from 'sequelize-typescript';
 interface VerificationCodeAttributes {
     id: number,
     phone: string,
-    code: number,
-    timestamp: Date,
+    code: number
 }
 
 interface VerificationCodeCreationAttributes extends Optional<VerificationCodeAttributes, 'id'> {}
