@@ -11,8 +11,8 @@ interface TaskCreationAttributes extends Optional<TaskAttributes, 'id'> {}
 
 @Table
 export class Task extends Model<TaskAttributes, TaskCreationAttributes> {
-    @Column
     @Unique
+    @Column
     title: string;
 
     @Column

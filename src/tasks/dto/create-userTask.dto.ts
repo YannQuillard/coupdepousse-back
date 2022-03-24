@@ -4,21 +4,29 @@ export class CreateUserTasksDto {
 
     @IsNotEmpty()
     @IsNumber()
-    readonly userId: number;
+    userId: number;
 
     @IsNotEmpty()
     @IsNumber()
-    readonly taskId: number;
+    taskId: number;
+
+    @IsNotEmpty()
+    @IsNumber()
+    validationSeniorId: number;
+
+    @IsNotEmpty()
+    @IsNumber()
+    validationFreeworkerId: number;
 
     @IsNotEmpty()
     @IsString()
-    readonly description: string;
+    description: string;
 
     @IsNotEmpty()
     @IsDate()
-    readonly datetime: Date;
+    datetime: Date;
 
     @IsNotEmpty()
     @IsDate()
-    readonly timestamp: Date;
+    timestamp: Date;
 }

@@ -5,9 +5,9 @@ export class CreateTaskDto {
 
     @IsString()
     @IsNotEmpty()
-    readonly title: string;
+    title: string;
 
     @IsUrl()
     @IsNotEmpty()
-    readonly image: string;
+    image: string;
 }

@@ -27,6 +27,14 @@ export class TaskUser extends Model<TaskUserAttributes, TaskUserCreationAttribut
     @Column
     description: string;
 
+    @ForeignKey(() => User)
+    @Column
+    validationFreeworkerId: number;
+
+    @ForeignKey(() => User)
+    @Column
+    validationSeniorId: number
+
     @Column
     datetime: Date;
 
