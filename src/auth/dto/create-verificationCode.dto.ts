@@ -5,11 +5,6 @@ export class CreateVerificationCodeDto {
     @IsString()
     phone: string;
 
-    @IsNotEmpty()
     @IsNumber()
-    code: number;
-
-    @IsNotEmpty()
-    @IsDate()
-    timestamp: number;
+    code?: number;
 }

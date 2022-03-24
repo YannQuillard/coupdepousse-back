@@ -5,7 +5,7 @@ interface VerificationCodeAttributes {
     id: number,
     phone: string,
     code: number,
-    timestamp: number,
+    timestamp: Date,
 }
 
 interface VerificationCodeCreationAttributes extends Optional<VerificationCodeAttributes, 'id'> {}
