@@ -20,14 +20,16 @@ export class AuthService {
 
     async createCode(createVerificationCodeDto: CreateVerificationCodeDto ): Promise<VerificationCode> {
         const existingPhone = await this.findPhone(createVerificationCodeDto.phone);
+        const code = Math.floor(1000 + Math.random() * 9000);
         Logger.log(existingPhone);
         if(existingPhone === null) {
-            const code = Math.floor(1000 + Math.random() * 9000);
             createVerificationCodeDto.code = code;
             return this.verificationCode.create(createVerificationCodeDto);
         }
         else {
-
+            this.deleteCode(createVerificationCodeDto.phone);
+            createVerificationCodeDto.code = code;
+            return this.verificationCode.create(createVerificationCodeDto);
         }
     }
 
@@ -41,11 +43,19 @@ export class AuthService {
                 code
             },
         });
-
+        const timestamp = new Date(result.timestamp).getTime() + 600;
+        
         if(!result) {
             throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+        } else if(timestamp < Date.now()) {
+            this.deleteCode(phone);
+            throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
         }
-        return result;
+
+        this.deleteCode(phone);
+        return {
+            "message": "Valid code"
+        };
     }
 
     async findPhone(phone: string) {
