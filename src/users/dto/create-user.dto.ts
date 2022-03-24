@@ -3,35 +3,47 @@ import { IsNotEmpty, IsPhoneNumber, IsString, IsNumber, IsDate, IsUrl, IsBoolean
 export class CreateUserDto {
     @IsNotEmpty()
     @IsString()
-    readonly firstName: string;
+    firstName: string;
 
     @IsOptional()
     @IsString()
-    readonly lastName: string;
+    lastName: string;
 
     @IsPhoneNumber()
     @IsNotEmpty()
-    readonly phone: string;
+    phone: string;
 
     @IsOptional()
     @IsString()
-    readonly description?: string;
+    description?: string;
 
     @IsOptional()
     @IsUrl()
-    readonly avatar?: string;
+    avatar?: string;
 
     @IsOptional()
     @IsNumber()
-    readonly helped_people?: number;
+    helped_people?: number;
 
-    readonly address?: string;
+    address?: string;
+
+    city: string;
+    country: string;
+    postalCode: string;
+
+    @IsOptional()
+    @IsNumber()
+    latitude: number;
+
+    @IsOptional()
+    @IsNumber()
+    longitude: number;
 
     @IsOptional()
     @IsDate()
-    readonly birthdate?: Date;
+    birthdate?: Date;
 
     @IsBoolean()
     @IsNotEmpty()
-    readonly freeworker: boolean;
+    freeworker: boolean;
 }

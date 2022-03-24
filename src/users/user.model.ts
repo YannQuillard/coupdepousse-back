@@ -1,8 +1,22 @@
 import { Optional } from 'sequelize';
-import { AllowNull, Unique, Column, Model, Table } from 'sequelize-typescript';
+import { AllowNull, Unique, Column, Model, Table, } from 'sequelize-typescript';
 
 interface UserAttributes {
-    id: number
+    id: number,
+    firstName: string,
+    lastName: string,
+    phone: string,
+    description?: string,
+    avatar?: string,
+    helped_people?: number,
+    address?: string,
+    city: string,
+    country: string,
+    postalCode: string,
+    latitude: number,
+    longitude: number,
+    birthdate?: Date,
+    freeworker: boolean
 }
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
@@ -35,6 +49,26 @@ export class User extends Model<UserAttributes, UserCreationAttributes> {
     @AllowNull
     @Column
     address: string;
+
+    @AllowNull
+    @Column
+    city: string;
+
+    @AllowNull
+    @Column
+    country: string;
+
+    @AllowNull
+    @Column
+    postalCode: string;
+
+    @AllowNull
+    @Column
+    latitude: number;
+
+    @AllowNull
+    @Column
+    longitude: number;
 
     @AllowNull
     @Column
