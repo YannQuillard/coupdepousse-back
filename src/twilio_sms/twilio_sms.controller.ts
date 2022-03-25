@@ -29,32 +29,17 @@ export class TwilioController {
     @Post('sms')
     @HttpCode(200)
     @Header('Content-Type', 'text/xml')
-    async recSms(@Body() test, @Res() res, @Req() req): Promise<User> {
+    async recSms(@Body() test, @Res() res, @Req() req): Promise<User>{
         const twiml = new MessagingResponse(); 
         const user = await this.userService.findOneByPhone(req.body.From);
 
-        if (inSubscription) {
-            inSubscription = false;
-            let signupVar: CreateUserDto = {
-                firstName: req.body.Body,
-                phone: req.body.From,
-                isValidate: true,
-            }
-            twiml.message(`Merci ${signupVar.firstName} de votre inscription`);
-            this.userService.create(signupVar);
-            res.end(twiml.toString());
-        }
         if (user) {
-            twiml.message(`Merci je t'ai reconnu ${user.firstName}`);
-            res.end(twiml.toString())
+            const msg = this.twilioServices.manageMessage(user, twiml, req);
         } else {
-            twiml.message(`Quel est votre nom ?`);
-            inSubscription = true;
-            res.end(twiml.toString());
-            // const subscribedUser = (await this.twilioServices.signUp(req.body.From)).firstName;
-            // Logger.log(`The subscribed users : ${subscribedUser}`);
+            this.twilioServices.subscribe(req, twiml, res);
         }
-        return user
+        res.end(twiml.toString());
+        return user;
     }
     
 }
