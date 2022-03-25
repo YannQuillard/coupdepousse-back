@@ -1,5 +1,5 @@
 import { Optional } from 'sequelize';
-import { ForeignKey, Column, Model, Table, CreatedAt } from 'sequelize-typescript';
+import { ForeignKey, Column, Model, Table, CreatedAt, AllowNull } from 'sequelize-typescript';
 import { User } from '../users/user.model'
 import { Task } from './task.model'
 

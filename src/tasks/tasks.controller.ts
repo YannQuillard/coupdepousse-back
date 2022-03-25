@@ -20,7 +20,7 @@ export class TasksController {
     return this.tasksService.createTask(createTaskDto);
   }
 
-  @Post('/')
+  @Post("/create-u-task")
   create(@Body() createUserTasksDto: CreateUserTasksDto) {
     return this.tasksService.createTaskUser(createUserTasksDto);
   }
