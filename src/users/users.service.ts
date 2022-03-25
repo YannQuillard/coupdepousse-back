@@ -61,10 +61,6 @@ export class UsersService {
     )
   }
 
-  async checkPhoneCode(code: string) {
-    return true;
-  }
-
   async findAll(): Promise<User[]> {
     return await this.usersRepository.findAll();
   }
@@ -84,6 +80,18 @@ export class UsersService {
       },
     });
     return result;
+  }
+
+  async updateValidate(phone) {
+    const result = await this.findOneByPhone(phone);
+    Logger.log(result)
+    if(result === null) {
+      return 'error'
+    }
+    else {
+      result.isValidate = true;
+      return await result.save();
+    }
   }
 
   async remove(id: string): Promise<void> {

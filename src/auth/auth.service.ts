@@ -1,4 +1,5 @@
 import { Injectable, Inject, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import { UsersService } from 'src/users/users.service';
 import { CreateTokenDto } from './dto/create-token.dto';
 import { CreateVerificationCodeDto } from './dto/create-verificationCode.dto';
 import { Token } from './token.model';
@@ -17,6 +18,8 @@ export class AuthService {
 
         @Inject('VERIFICATIONCODE_REPOSITORY')
         private readonly verificationCode: typeof VerificationCode,
+
+        private readonly userService: UsersService
     ) {}
 
     async createToken(createTokenDto: CreateTokenDto ): Promise<Token> {
@@ -26,7 +29,7 @@ export class AuthService {
     async createCode(createVerificationCodeDto: CreateVerificationCodeDto ): Promise<VerificationCode> {
         const existingPhone = await this.findPhone(createVerificationCodeDto.phone);
         const code = Math.floor(1000 + Math.random() * 9000);
-        Logger.log(existingPhone);
+
         if(existingPhone === null) {
             createVerificationCodeDto.code = code;
             client.messages.create({
@@ -53,19 +56,29 @@ export class AuthService {
                 code
             },
         });
-        const timestamp = new Date(result.timestamp).getTime() + 600;
         
         if(!result) {
             throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
-        } else if(timestamp < Date.now()) {
-            this.deleteCode(phone);
-            throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
-        }
+        } 
+        else {
+            const timestamp = new Date(result.timestamp).getTime() + 600;
+        
+            if(timestamp > Date.now()) {
+                this.deleteCode(phone);
+                throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+            }
+    
+            const validateUpdate = await this.userService.updateValidate(phone);
 
-        this.deleteCode(phone);
-        return {
-            "message": "Valid code"
-        };
+            if(!validateUpdate) {
+                throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
+            }
+            
+            this.deleteCode(phone);
+            return {
+                "message": "Valid code"
+            };
+        }
     }
 
     async findPhone(phone: string) {

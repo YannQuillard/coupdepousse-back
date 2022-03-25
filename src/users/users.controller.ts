@@ -19,11 +19,6 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  @Post()
-  checkPhoneCode(@Body() code: string) {
-    return this.usersService.checkPhoneCode(code);
-  }
-
   @Get()
   findAll(): Promise<User[]> {
     return this.usersService.findAll();
