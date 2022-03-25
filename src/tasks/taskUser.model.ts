@@ -1,49 +1,43 @@
 import { Optional } from 'sequelize';
-import { ForeignKey, Column, Model, Table, CreatedAt, AllowNull, Unique } from 'sequelize-typescript';
-import { User } from '../users/user.model'
-import { Task } from './task.model'
+import { Column, Model, Table, CreatedAt, AllowNull, Unique } from 'sequelize-typescript';
 
 interface TaskUserAttributes {
     id: number,
     userId: number,
     freeworkerId: number,
     taskId: number,
-    description: string,
-    datetime: Date,
-    timestamp: Date
+    description: string
+    validationFreeworkerId: boolean,
+    validationSeniorId: boolean,
+    datetime: string
 }
 
 interface TaskUserCreationAttributes extends Optional<TaskUserAttributes, 'id'> {}
 
 @Table
 export class TaskUser extends Model<TaskUserAttributes, TaskUserCreationAttributes> {
-    @ForeignKey(() => User)
     @Column
     userId: number;
 
-    @ForeignKey(() => User)
     @AllowNull
     @Column
     freeworkerId?: number;
 
-    @ForeignKey(() => Task)
     @Column
     taskId: number;
 
     @Column
     description: string;
 
-    @ForeignKey(() => User)
     @AllowNull
     @Column
     validationFreeworkerId?: boolean;
 
-    @ForeignKey(() => User)
     @Column
     validationSeniorId: boolean;
 
     @Column
-    datetime: Date;
+    datetime: string;
 
     @CreatedAt
     timestamp: Date;

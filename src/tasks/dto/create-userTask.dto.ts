@@ -1,11 +1,15 @@
-import { IsNotEmpty, IsString, IsNumber, IsDate } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsDate, IsOptional, IsBoolean } from 'class-validator';
 
 export class CreateUserTasksDto {
+    @IsOptional()
+    @IsNumber()
+    id: number;
 
+    @IsNotEmpty()
     @IsNumber()
     userId: number;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsNumber()
     freeworkerId?: number;
 
@@ -13,23 +17,19 @@ export class CreateUserTasksDto {
     @IsNumber()
     taskId: number;
 
-    @IsNotEmpty()
-    @IsNumber()
+    @IsOptional()
+    @IsBoolean()
     validationSeniorId: boolean;
 
-    @IsNotEmpty()
-    @IsNumber()
+    @IsOptional()
+    @IsBoolean()
     validationFreeworkerId?: boolean;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
-    description: string;
+    description?: string;
 
-    @IsNotEmpty()
-    @IsDate()
-    datetime: Date;
-
-    @IsNotEmpty()
-    @IsDate()
-    timestamp: Date;
+    @IsOptional()
+    @IsString()
+    datetime?: string;
 }

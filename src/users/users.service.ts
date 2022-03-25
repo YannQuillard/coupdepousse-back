@@ -84,7 +84,6 @@ export class UsersService {
 
   async updateValidate(phone) {
     const result = await this.findOneByPhone(phone);
-    Logger.log(result)
     if(result === null) {
       return 'error'
     }
