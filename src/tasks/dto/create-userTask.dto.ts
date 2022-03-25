@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString, IsNumber, IsDate, IsOptional, IsBoolean } from 'c
 export class CreateUserTasksDto {
     @IsOptional()
     @IsNumber()
-    id: number;
+    id?: number;
 
     @IsNotEmpty()
     @IsNumber()
@@ -15,11 +15,11 @@ export class CreateUserTasksDto {
 
     @IsNotEmpty()
     @IsNumber()
-    taskId: number;
+    taskId?: number;
 
     @IsOptional()
     @IsBoolean()
-    validationSeniorId: boolean;
+    validationSeniorId?: boolean;
 
     @IsOptional()
     @IsBoolean()
