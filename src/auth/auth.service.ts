@@ -62,18 +62,17 @@ export class AuthService {
         } 
         else {
             const timestamp = new Date(result.timestamp).getTime() + 600;
-        
+            const validateUpdate = await this.userService.updateValidate(phone);
+
             if(timestamp > Date.now()) {
                 this.deleteCode(phone);
                 throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
             }
     
-            const validateUpdate = await this.userService.updateValidate(phone);
-
             if(!validateUpdate) {
                 throw new HttpException('Bad Request', HttpStatus.BAD_REQUEST);
             }
-            
+
             this.deleteCode(phone);
             return {
                 "message": "Valid code"
