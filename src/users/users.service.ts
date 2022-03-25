@@ -91,6 +91,45 @@ export class UsersService {
     }
   }
 
+  async updateAddress(phone, address) {
+    const result = await this.findOneByPhone(phone);
+    if(result === null) {
+      return 'error';
+    } else {
+      result.address = address;
+      return await result.save();
+    }
+  }
+
+  async updateCity(phone, city) {
+    const result = await this.findOneByPhone(phone);
+    if(result === null) {
+      return 'error';
+    } else {
+      result.city = city;
+      return await result.save();
+    }
+  }
+
+  async updateCountry(phone, country) {
+    const result = await this.findOneByPhone(phone);
+    if(result === null) {
+      return 'error';
+    } else {
+      result.country = country;
+      return await result.save();
+    }
+  }
+  async updatePostalCode(phone, postalCode) {
+    const result = await this.findOneByPhone(phone);
+    if(result === null) {
+      return 'error';
+    } else {
+      result.postalCode = postalCode;
+      return await result.save();
+    }
+  }
+
   async remove(id: string): Promise<void> {
     const user = await this.findOne(id);
     await user.destroy()
