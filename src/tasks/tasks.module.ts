@@ -13,5 +13,6 @@ import { TasksService } from './tasks.service';
     ...tasksProviders,
     ...tasksUserProviders,
   ],
+  exports:[TasksService]
 })
 export class TasksModule {}

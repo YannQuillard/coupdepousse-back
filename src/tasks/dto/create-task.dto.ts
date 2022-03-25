@@ -10,4 +10,8 @@ export class CreateTaskDto {
     @IsUrl()
     @IsNotEmpty()
     image: string;
+
+    @IsString()
+    @IsNotEmpty()
+    command: string;
 }
