@@ -2,9 +2,8 @@ import { IsNotEmpty, IsString, IsNumber, IsDate } from 'class-validator';
 
 export class CreateUserTasksDto {
 
-    @IsNotEmpty()
     @IsNumber()
-    freeworkerId: number;
+    freeworkerId?: number;
 
     @IsNotEmpty()
     @IsNumber()
@@ -12,11 +11,11 @@ export class CreateUserTasksDto {
 
     @IsNotEmpty()
     @IsNumber()
-    validationSeniorId: number;
+    validationSeniorId: boolean;
 
     @IsNotEmpty()
     @IsNumber()
-    validationFreeworkerId: number;
+    validationFreeworkerId?: boolean;
 
     @IsNotEmpty()
     @IsString()

@@ -18,22 +18,22 @@ interface TaskUserCreationAttributes extends Optional<TaskUserAttributes, 'id'> 
 export class TaskUser extends Model<TaskUserAttributes, TaskUserCreationAttributes> {
     @ForeignKey(() => User)
     @Column
-    bookId: number;
+    freeworkerId?: number;
 
     @ForeignKey(() => Task)
     @Column
-    authorId: number;
+    seniorId: number;
 
     @Column
     description: string;
 
     @ForeignKey(() => User)
     @Column
-    validationFreeworkerId: number;
+    validationFreeworkerId?: boolean;
 
     @ForeignKey(() => User)
     @Column
-    validationSeniorId: number
+    validationSeniorId: boolean;
 
     @Column
     datetime: Date;
