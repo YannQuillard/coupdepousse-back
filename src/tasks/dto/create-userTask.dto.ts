@@ -1,14 +1,14 @@
-import { IsNotEmpty, IsPhoneNumber, IsString, IsNumber, IsDate, IsUrl, IsBoolean, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsDate } from 'class-validator';
 
 export class CreateUserTasksDto {
 
     @IsNotEmpty()
     @IsNumber()
-    userId: number;
+    freeworkerId: number;
 
     @IsNotEmpty()
     @IsNumber()
-    taskId: number;
+    seniorId: number;
 
     @IsNotEmpty()
     @IsNumber()
