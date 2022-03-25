@@ -33,12 +33,34 @@ export class TasksService {
         }
     }
 
-    async returnTaskByUserId(userId: number) {
-        return this.tasksUserRepository.findAll({
+    async returnTaskByUserId(phone: string) {
+        const user = await this.userService.findOneByPhone(phone);
+        const userId = user.id;
+        const tasks = await this.tasksUserRepository.findAll({
             where: {
                 userId,
             },
         });
+        let array = [];
+
+        for (var i=0; i<tasks.length; i++){
+            const user = await this.userService.findOne(tasks[i].userId.toString())
+            const task = await this.findOne(tasks[i].taskId.toString())
+            const object = {
+                id: tasks[i].id,
+                title: task.title,
+                icon: task.image,
+                latitude: user.latitude,
+                longitude: user.longitude,
+                avatar: user.avatar,
+                datetime: tasks[i].datetime
+            }
+
+            array.push(object)
+        }
+
+
+        return array;
     }
 
     async findAll(): Promise<Task[]> {

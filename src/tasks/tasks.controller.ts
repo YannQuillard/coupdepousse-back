@@ -31,9 +31,9 @@ export class TasksController {
   }
 
   
-  @Get('/user/:id')
-  returnTaskByUserId(@Param('id') id: number) {
-    return this.tasksService.returnTaskByUserId(id);
+  @Get('/user/:phone')
+  returnTaskByUserId(@Param('phone') phone: string) {
+    return this.tasksService.returnTaskByUserId(phone);
   }
   
 
