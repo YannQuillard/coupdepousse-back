@@ -1,0 +1,31 @@
+version: "3"
+services:
+    coupdepousse-node:
+        image: "node:17.7-alpine"
+        container_name: "coupdepousse-node"
+        links:
+          - "coupdepousse-postgres:postgres.host"
+        ports:
+          - 3000:3000
+        volumes:
+            - "./:/coupdepousse:rw"
+        working_dir: /coupdepousse
+        environment: 
+          - TWILIO_ACCOUNT_SID
+          - TWILIO_AUTH_TOKEN
+          - TWILIO_PHONE_NUMBER
+        restart: always
+        entrypoint: "/bin/sh -c -- \"while true; do sleep 10; done\""
+    coupdepousse-postgres:
+        image: "postgres:14.2"
+        container_name: "coupdepousse-postgres"
+        volumes:
+            - "._postgres_data_dir/:/var/lib/postgresql/data"
+        ports:
+          - 5432:5432
+        environment:
+          - POSTGRES_USER
+          - POSTGRES_PASSWORD
+          - POSTGRES_DB
+        restart: always
+    
