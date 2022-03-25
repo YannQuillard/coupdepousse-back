@@ -6,6 +6,7 @@ import { Task } from './task.model'
 interface TaskUserAttributes {
     id: number,
     userId: number,
+    freeworkerId: number,
     taskId: number,
     description: string,
     datetime: Date,
@@ -18,11 +19,15 @@ interface TaskUserCreationAttributes extends Optional<TaskUserAttributes, 'id'> 
 export class TaskUser extends Model<TaskUserAttributes, TaskUserCreationAttributes> {
     @ForeignKey(() => User)
     @Column
+    userId: number;
+
+    @ForeignKey(() => User)
+    @Column
     freeworkerId?: number;
 
     @ForeignKey(() => Task)
     @Column
-    seniorId: number;
+    taskId: number;
 
     @Column
     description: string;

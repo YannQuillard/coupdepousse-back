@@ -3,11 +3,15 @@ import { IsNotEmpty, IsString, IsNumber, IsDate } from 'class-validator';
 export class CreateUserTasksDto {
 
     @IsNumber()
+    userId: number;
+
+    @IsNotEmpty()
+    @IsNumber()
     freeworkerId?: number;
 
     @IsNotEmpty()
     @IsNumber()
-    seniorId: number;
+    taskId: number;
 
     @IsNotEmpty()
     @IsNumber()
