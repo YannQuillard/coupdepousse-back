@@ -1,5 +1,5 @@
 import { Optional } from 'sequelize';
-import { ForeignKey, Column, Model, Table, CreatedAt, AllowNull } from 'sequelize-typescript';
+import { ForeignKey, Column, Model, Table, CreatedAt, AllowNull, Unique } from 'sequelize-typescript';
 import { User } from '../users/user.model'
 import { Task } from './task.model'
 
@@ -22,6 +22,7 @@ export class TaskUser extends Model<TaskUserAttributes, TaskUserCreationAttribut
     userId: number;
 
     @ForeignKey(() => User)
+    @AllowNull
     @Column
     freeworkerId?: number;
 
@@ -33,6 +34,7 @@ export class TaskUser extends Model<TaskUserAttributes, TaskUserCreationAttribut
     description: string;
 
     @ForeignKey(() => User)
+    @AllowNull
     @Column
     validationFreeworkerId?: boolean;
 
