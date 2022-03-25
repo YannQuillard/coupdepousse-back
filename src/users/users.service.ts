@@ -46,7 +46,7 @@ export class UsersService {
         firstName: createUserDto.firstName,
         //token: this.generateJWT(user),
       };
-      return { user };
+      return user;
     }
   }
 

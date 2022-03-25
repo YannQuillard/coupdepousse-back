@@ -42,6 +42,11 @@ export class AuthService {
         else {
             this.deleteCode(createVerificationCodeDto.phone);
             createVerificationCodeDto.code = code;
+            client.messages.create({
+                body:`Voici votre code d'authentification : ${code}`,
+                from: phoneNbr,
+                to: createVerificationCodeDto.phone
+            })
             return this.verificationCode.create(createVerificationCodeDto);
         }
     }

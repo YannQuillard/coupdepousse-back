@@ -1,32 +1,28 @@
-import {OnGatewayConnection, OnGatewayDisconnect, SubscribeMessage, WebSocketGateway,WebSocketServer } from '@nestjs/websockets';
-import { Socket, Server } from 'socket.io';
-import { Injectable, Logger } from '@nestjs/common';
+import { SubscribeMessage, WebSocketGateway, WebSocketServer } from "@nestjs/websockets"
+import { Server, Socket } from 'socket.io'
+import { CreateMessageDto } from './dto/create-message.dto'
 
-@WebSocketGateway({
-    cors: {
-      origin: '*',
-    },
-})
-export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect{
-    @WebSocketServer()
-    server: Server;
+@WebSocketGateway()
+export class ChatGateway {
+  @WebSocketServer()
+  private server: Server
 
-    async handleConnection(socket) {
-        Logger.log('Connect');
-        // Send list of connected users
-        //this.server.emit('users', socket);
-      }
-    
-      async handleDisconnect(socket) {
+  @SubscribeMessage("message")
+  handleMessage(client: Socket, createMessageDto: CreateMessageDto): void {
+    const { id, ...message } = createMessageDto
+    this.server.to(id).emit("message", message)
+  }
 
-        Logger.log('Disconnect');
-        //this.server.emit('users', socket);
-      }
+  @SubscribeMessage("joinRoom")
+  handleRoomJoin(client: Socket, room: string) {
+    client.join(room)
+    client.emit("joinedRoom", room)
+  }
 
-    @SubscribeMessage('message')
-    async handleMessage(client, message) {
-      Logger.log('Broadcast Message');
-      client.broadcast.emit('message', message);
-      //this.server.emit('message', message);
-    }
+  @SubscribeMessage("leaveRoom")
+  handleRoomLeave(client: Socket, room: string) {
+    client.leave(room)
+    client.emit("leftRoom", room)
+  }
+
 }
