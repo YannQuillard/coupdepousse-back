@@ -35,6 +35,7 @@ export class TasksController {
   returnTaskByUserId(@Param('id') id: number) {
     return this.tasksService.returnTaskByUserId(id);
   }
+  
 
   @Get()
   findAll(): Promise<Task[]> {
@@ -47,7 +48,7 @@ export class TasksController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): Promise<void> {
-    return this.tasksService.remove(id);
+  removeTaskFromUser(@Param('id') id: number): Promise<void> {
+    return this.tasksService.removeTaskFromUser(id);
   }
 }

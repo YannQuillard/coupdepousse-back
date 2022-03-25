@@ -85,8 +85,8 @@ export class TasksService {
     }
 
 
-    async remove(id: string): Promise<void> {
-        const task = await this.findOne(id);
+    async removeTaskFromUser(id: number): Promise<void> {
+        const task = await this.findOneTask(id);
         await task.destroy()
     }
 }
