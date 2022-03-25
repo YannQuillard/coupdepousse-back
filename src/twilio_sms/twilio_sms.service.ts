@@ -4,14 +4,16 @@ import {User} from '../users/user.model'
 import { UsersService } from "src/users/users.service";
 import { twiml } from "twilio";
 import { create } from "domain";
-import { CreateUserDto } from "src/users/dto/create-user.dto";
+import { CreateUserDto } from "../users/dto/create-user.dto";
 import { TasksService } from "src/tasks/tasks.service";
+import { CreateUserTasksDto } from "src/tasks/dto/create-userTask.dto";
 
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 let isSubscribed = false;
 let nextIsAddress = false
 let step = ["address", "city", "country", "postalCode"];
 let i = 0;
+let needDesc = true;
 
 
 @Injectable()
@@ -68,27 +70,74 @@ export class TwilioServices {
                         nextIsAddress = !nextIsAddress;
                         break;
                 }
-
             }
 
-        }else {
+        } else {
 
             switch(req.body.Body.toLowerCase()) {
                 case 'temps':
-
-                    twiml.message("Yo le rap");
+                    let timeTask: CreateUserTasksDto = {
+                        userId : user.id,
+                        taskId : 8,
+                    }
+                    this.tasksServices.createTaskUser(timeTask);
+                    twiml.message("La tâche à bien été crée !");
                     break;
                 case 'papiers':
+                    let paperTask: CreateUserTasksDto = {
+                        userId : user.id,
+                        taskId : 7,
+                    }
+                    this.tasksServices.createTaskUser(paperTask);
+                    twiml.message("La tâche à bien été crée !");
                     break;
                 case 'jeux':
+                    let gameTask: CreateUserTasksDto = {
+                        userId : user.id,
+                        taskId : 4,
+                    }
+                    this.tasksServices.createTaskUser(gameTask);
+                    twiml.message("La tâche à bien été crée !");
                     break;
                 case 'informatique':
+                    let infoTask: CreateUserTasksDto = {
+                        userId : user.id,
+                        taskId : 2,
+                    }
+                    this.tasksServices.createTaskUser(infoTask);
+                    twiml.message("La tâche à bien été crée !");
                     break;
                 case 'courses':
+                    let shopTask: CreateUserTasksDto = {
+                        userId : user.id,
+                        taskId : 1,
+                    }
+                    this.tasksServices.createTaskUser(shopTask);
+                    twiml.message("La tâche à bien été crée !");
                     break;
                 case 'medecin':
+                    let medicTask: CreateUserTasksDto = {
+                        userId : user.id,
+                        taskId : 5,
+                    }
+                    this.tasksServices.createTaskUser(medicTask);
+                    twiml.message("La tâche à bien été crée !");
                     break;
                 case 'travaux':
+                    let workTask: CreateUserTasksDto = {
+                        userId : user.id,
+                        taskId : 6,
+                    }
+                    this.tasksServices.createTaskUser(workTask);
+                    twiml.message("La tâche à bien été crée !");
+                    break;
+                case 'jardinage':
+                    let gardenTask: CreateUserTasksDto = {
+                        userId : user.id,
+                        taskId : 3,
+                    }
+                    this.tasksServices.createTaskUser(gardenTask);
+                    twiml.message("La tâche à bien été crée !");
                     break;
             }
         }
