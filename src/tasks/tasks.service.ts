@@ -1,4 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
+import { UsersService } from 'src/users/users.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { CreateUserTasksDto } from './dto/create-userTask.dto';
 import { Task } from './task.model';
@@ -11,6 +12,9 @@ export class TasksService {
         private readonly tasksRepository: typeof Task,
         @Inject('TASKS_USER_REPOSITORY')
         private readonly tasksUserRepository: typeof TaskUser,
+
+
+        private readonly userService: UsersService,
     ) {}
 
     async createTask(createtaskDto: CreateTaskDto): Promise<Task> {
@@ -18,7 +22,11 @@ export class TasksService {
     }
 
     async createTaskUser(createUserTasksDto: CreateUserTasksDto) {
-        return this.tasksUserRepository.create(createUserTasksDto);
+        const user = await this.userService.findOne(createUserTasksDto.userId.toString());
+
+        if(user) {
+            return await this.tasksUserRepository.create(createUserTasksDto);
+        }
     }
 
     async findAll(): Promise<Task[]> {

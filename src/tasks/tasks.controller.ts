@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Post, Logger } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { CreateUserTasksDto } from './dto/create-userTask.dto';
 import { Task } from './task.model';
 import { TasksService } from './tasks.service';
 
@@ -18,6 +19,12 @@ export class TasksController {
   createTask(@Body() createTaskDto: CreateTaskDto) {
     return this.tasksService.createTask(createTaskDto);
   }
+
+  @Post('/')
+  create(@Body() createUserTasksDto: CreateUserTasksDto) {
+    return this.tasksService.createTaskUser(createUserTasksDto);
+  }
+
 
   @Get()
   findAll(): Promise<Task[]> {
