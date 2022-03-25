@@ -27,7 +27,6 @@ export class UsersService {
     let coordinate = this.fetchAddress(createUserDto.address, createUserDto.postalCode, createUserDto.city, createUserDto.country);
     
     coordinate.subscribe((x: Coordinate[]) => {
-      console.log(x)
       if(x[0] !== undefined) {
         createUserDto.latitude = x[0].lat;
         createUserDto.longitude = x[0].lon;
@@ -53,7 +52,6 @@ export class UsersService {
 
   fetchAddress(address: string, postalCode: string, city: string, country: string): Observable<Array<Coordinate>> {
     const addressQuery = `street=${encodeURIComponent(address)}&postalcode=${encodeURIComponent(postalCode)}&city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}`;
-    console.log(addressQuery);
     return this.httpService.get(`${process.env.OSM_URL}/search?${addressQuery}&format=json`).pipe(
       map((axiosResponse: AxiosResponse) => {
         return axiosResponse.data;
